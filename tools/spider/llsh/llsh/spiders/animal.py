@@ -6,13 +6,13 @@ from llsh.items import LlshItem
 
 class AnimalSpider(scrapy.Spider):
     name = 'animal'
-    allowed_domains = ['www.hacg.tw']
-    start_urls = ['https://www.hacg.tw/wp/category/all/anime/']
+    allowed_domains = ['www.com']
+    start_urls = ['https://www.com']
 
     def start_requests(self):
         # 人为设置爬取的页面数量
         for i in range(1, 125):
-            yield scrapy.Request(url="https://www.hacg.tw/wp/category/all/anime/page/{}/".format(i), callback=self.parse)
+            yield scrapy.Request(url="https://www.com/page/{}/".format(i), callback=self.parse)
 
     def parse(self, response):
         # 取每个番剧的详情页面，进行爬取
