@@ -9,7 +9,7 @@ class XwlbotxtSpider(scrapy.Spider):
 
     def start_requests(self):
         # sevaral days xwlbo
-        for i in range(122):
+        for i in range(67):
             yield scrapy.Request(url="http://www.xwlbo.com/txt_{}.html".format(i), callback=self.parse, dont_filter=True)
 
     def parse(self, response):
