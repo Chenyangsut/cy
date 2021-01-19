@@ -3,13 +3,14 @@ from xwlbo.items import XwlboItem
 
 
 class XwlbotxtSpider(scrapy.Spider):
+    # some 2016 or early news because typography difficult, and this time in order to make 2020 cloud, so ignore some
     name = 'xwlbotxt'
     allowed_domains = ['www.xwlbo.com']
     start_urls = ['http://www.xwlbo.com/']
 
     def start_requests(self):
         # sevaral days xwlbo
-        for i in range(67):
+        for i in range(70):
             yield scrapy.Request(url="http://www.xwlbo.com/txt_{}.html".format(i), callback=self.parse, dont_filter=True)
 
     def parse(self, response):
@@ -22,11 +23,12 @@ class XwlbotxtSpider(scrapy.Spider):
     def parse_items(self, response):
         # get each chapter xwlbo
         item = XwlboItem()
-        item["profile"] = response.xpath("//div[@id='content']/div[@class='zhibo']/div[@class='title']/h2/text()").extract()
+        item["profile"] = response.xpath("//div[@id='content']/div[@class='zhibo']/div[@class='title']/h2/text()").extract()[0]
         chapters = response.xpath("//div[@id='tab_con2']/div[@class='text_content']/p/strong/a/@href").extract()
 
         for chapter in chapters:
-            request = scrapy.Request(url="http://www.xwlbo.com/{}".format(chapter), callback=self.parse_content, dont_filter=True)
+            url = chapter if "www.xwlbo.com" in chapter else "http://www.xwlbo.com/{}".format(chapter)
+            request = scrapy.Request(url=url, callback=self.parse_content, dont_filter=True)
             request.meta["item"] = item
             yield request
 
