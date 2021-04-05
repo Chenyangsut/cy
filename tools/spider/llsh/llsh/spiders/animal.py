@@ -3,16 +3,14 @@ import scrapy
 
 from llsh.items import LlshItem
 
+from cy.conf.spider_conf import DOWNLOAD_BASE_URL
+
 
 class AnimalSpider(scrapy.Spider):
     name = 'animal'
     allowed_domains = ['www.com']
-    start_urls = ['https://www.com']
-
-    def start_requests(self):
-        # 人为设置爬取的页面数量
-        for i in range(1, 125):
-            yield scrapy.Request(url="https://www.com/page/{}/".format(i), callback=self.parse)
+    # 人为设置爬取的页面数量
+    start_urls = [DOWNLOAD_BASE_URL[name].format(i) for i in range(1, 125)]
 
     def parse(self, response):
         # 取每个番剧的详情页面，进行爬取
@@ -20,7 +18,6 @@ class AnimalSpider(scrapy.Spider):
         for part in parts:
             content_page = part.xpath("@href")[0].extract()
             yield scrapy.Request(url=content_page, callback=self.parse_item)
-
 
     def parse_item(self, response):
         item = LlshItem()
