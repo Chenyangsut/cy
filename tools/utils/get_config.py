@@ -2,7 +2,7 @@
 # coding: utf-8
 """
 File: get_config.py
-Authors: v_wangyunlong03(v_wangyunlong03@baidu.com)
+Authors: ChenYang
 Date: 2021/4/9 15:24:50
 Description:
 """
@@ -11,7 +11,7 @@ import pathlib
 
 import configobj
 
-BASE_CONF_DIR = pathlib.Path(__file__).parent.parent.joinpath("conf")
+BASE_CONF_DIR = pathlib.Path(__file__).parent.parent.parent.joinpath("conf")
 
 
 def handle_config(file_name="cy", file_path=""):
