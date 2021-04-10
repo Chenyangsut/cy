@@ -1,16 +1,17 @@
-# -*- coding:utf-8 -*-
-# @Time: 2021/1/22 19:34
-# @Author: Chenyang
-# @File: get_config.py
-# @Email: sygysut@163.com
-# @Direction: Read config file
-
-
+#!/usr/bin/env python
+# coding: utf-8
+"""
+File: get_config.py
+Authors: v_wangyunlong03(v_wangyunlong03@baidu.com)
+Date: 2021/4/9 15:24:50
+Description:
+"""
 import traceback
 import pathlib
+
 import configobj
 
-from cy.conf.base import BASE_CONF_DIR
+BASE_CONF_DIR = pathlib.Path(__file__).parent.parent.joinpath("conf")
 
 
 def handle_config(file_name="cy", file_path=""):
@@ -48,7 +49,10 @@ class ConfigObj(object):
         values = self.config.get(section, None)
         if values:
             for key in values.keys():
-                values[key] = format_result(str(values[key]))
+                if isinstance(values[key], dict):
+                   pass
+                else:
+                    values[key] = format_result(str(values[key]))
         return values
 
     def get_attribute(self, section, attribute):
@@ -107,3 +111,9 @@ def num_convert(value):
             return float(value)
         except ValueError:
             return value
+
+
+if __name__ == "__main__":
+    cfg = handle_config("ChromeFake")
+    print(BASE_CONF_DIR)
+    print(cfg.get_section("options"))
