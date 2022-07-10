@@ -5,3 +5,9 @@ test
 conf
 proto
 .idea
+data
+log
+build
+project.egg-info/*
+project.egg-info
+scrapy.cfg

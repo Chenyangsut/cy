@@ -1,0 +1,13 @@
+setup.py
+llsh/__init__.py
+llsh/items.py
+llsh/middlewares.py
+llsh/pipelines.py
+llsh/settings.py
+llsh/spiders/__init__.py
+llsh/spiders/animal.py
+project.egg-info/PKG-INFO
+project.egg-info/SOURCES.txt
+project.egg-info/dependency_links.txt
+project.egg-info/entry_points.txt
+project.egg-info/top_level.txt
